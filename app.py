@@ -2,8 +2,10 @@ from flask import Flask, request, jsonify, render_template
 from models import db, User, Book, UserPreference
 from config import Config
 from recomendation import recommend_books
+from flasgger import Swagger
 
 app = Flask(__name__)
+swagger = Swagger(app)
 app.config.from_object(Config)
 db.init_app(app)
 
