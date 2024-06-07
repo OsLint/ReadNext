@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Recommendation System</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .container { max-width: 600px; margin: auto; }
+        .form-group { margin-bottom: 15px; }
+        .form-group label { display: block; }
+        .form-group input, .form-group select { width: 100%; padding: 8px; }
+        .form-group button { padding: 10px 15px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Book Recommendation System</h1>
+        <div class="form-group">
+            <label for="username">Add User</label>
+            <input type="text" id="username" placeholder="Enter username">
+            <button onclick="addUser()">Add User</button>
+        </div>
+        <div class="form-group">
+            <label for="book">Add Book</label>
+            <input type="text" id="book" placeholder="Enter book title">
+            <button onclick="addBook()">Add Book</button>
+        </div>
+        <div class="form-group">
+            <label for="user-id">User ID</label>
+            <input type="number" id="user-id" placeholder="Enter user ID">
+        </div>
+        <div class="form-group">
+            <label for="book-id">Book ID</label>
+            <input type="number" id="book-id" placeholder="Enter book ID">
+        </div>
+        <div class="form-group">
+            <label for="rating">Rating</label>
+            <input type="number" id="rating" placeholder="Enter rating">
+            <button onclick="addPreference()">Add Preference</button>
+        </div>
+        <div class="form-group">
+            <button onclick="getRecommendations()">Get Recommendations</button>
+        </div>
+        <div id="recommendations"></div>
+    </div>
+
+    <script>
+        async function addUser() {
+            const username = document.getElementById('username').value;
+            const response = await fetch('/add_user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username }),
+            });
+            const result = await response.json();
+            alert(result.message);
+        }
+
+        async function addBook() {
+            const title = document.getElementById('book').value;
+            const response = await fetch('/add_book', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ title }),
+            });
+            const result = await response.json();
+            alert(result.message);
+        }
+
+        async function addPreference() {
+            const user_id = document.getElementById('user-id').value;
+            const book_id = document.getElementById('book-id').value;
+            const rating = document.getElementById('rating').value;
+            const response = await fetch('/add_preference', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ user_id, book_id, rating }),
+            });
+            const result = await response.json();
+            alert(result.message);
+        }
+
+        async function getRecommendations() {
+            const user_id = document.getElementById('user-id').value;
+            const response = await fetch(`/recommend/${user_id}`);
+            const recommendations = await response.json();
+            const recommendationsDiv = document.getElementById('recommendations');
+            recommendationsDiv.innerHTML = '<h3>Recommendations:</h3>';
+            recommendations.forEach(book => {
+                const p = document.createElement('p');
+                p.textContent = book;
+                recommendationsDiv.appendChild(p);
+            });
+        }
+    </script>
+</body>
+</html>
