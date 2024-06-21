@@ -1,43 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
+    <title>Books For You - Login/Register</title>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Book Recommendation System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" href="/static/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/static/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
-    <div class="container">
-        <h1>Book Recommendation System</h1>
-        <div class="form-group">
-            <label for="username">Add User</label>
-            <input type="text" id="username" placeholder="Enter username">
-            <button onclick="addUser()">Add User</button>
-        </div>
-        <div class="form-group">
-            <label for="book">Add Book</label>
-            <input type="text" id="book" placeholder="Enter book title">
-            <button onclick="addBook()">Add Book</button>
-        </div>
-        <div class="form-group">
-            <label for="user-id">User ID</label>
-            <input type="number" id="user-id" placeholder="Enter user ID">
-        </div>
-        <div class="form-group">
-            <label for="book-id">Book ID</label>
-            <input type="number" id="book-id" placeholder="Enter book ID">
-        </div>
-        <div class="form-group">
-            <label for="rating">Rating</label>
-            <input type="number" id="rating" placeholder="Enter rating">
-            <button onclick="addPreference()">Add Preference</button>
-        </div>
-        <div class="form-group">
-            <button onclick="getRecommendations()">Get Recommendations</button>
-        </div>
-        <div id="recommendations"></div>
-    </div>
+<body class="light-grey content" style="max-width:1600px">
 
-   <script src="/static/app.js"></script>
+
+<div class="container padding-large" id="loginRegister">
+    <h1 class="jumbo"><b>Books For You</b></h1>
+    <h2><b>Login or Register</b></h2>
+    <div class="row-padding section">
+        <div class="half">
+            <h3>Login</h3>
+            <form action="/login" method="post">
+                <label>Nickname</label>
+                <input class="input border" type="text" name="nickname" required>
+                <label>Password</label>
+                <input class="input border" type="password" name="password" required>
+                <button type="submit" class="button black margin-top">Login</button>
+            </form>
+        </div>
+        <div class="half">
+            <h3>Register</h3>
+            <form action="/register" method="post">
+                <label>Name</label>
+                <input class="input border" type="text" name="name" required>
+                <label>Nickname</label>
+                <input class="input border" type="text" name="nickname" required>
+                <label>Password</label>
+                <input class="input border" type="password" name="password" required>
+                <button type="submit" class="button black margin-top">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer class="container padding-32 dark-grey">
+    <div class="row-padding">
+        <div class="third">
+            <h3>Rate Books</h3>
+            <p>Praesent tincidunt sed tellus ut rutrum. Sed vitae justo condimentum, porta lectus vitae, ultricies
+                congue gravida diam non fringilla.</p>
+
+        </div>
+
+        <div class="third">
+            <h3>Get Recommendations</h3>
+            <ul class="ul hoverable">
+                <li class="padding-16">
+                    <img src="/w3images/workshop.jpg" class="left margin-right" style="width:50px">
+                    <span class="large">Lorem</span><br>
+                    <span>Sed mattis nunc</span>
+                </li>
+                <li class="padding-16">
+                    <img src="/w3images/gondol.jpg" class="left margin-right" style="width:50px">
+                    <span class="large">Ipsum</span><br>
+                    <span>Praes tinci sed</span>
+                </li>
+            </ul>
+        </div>
+
+        <div class="third">
+            <h3>Discover New Books</h3>
+            <p>
+                <span class="tag grey margin-bottom">Travel</span>
+                <span class="tag grey small margin-bottom">New York</span>
+                <span class="tag grey small margin-bottom">London</span>
+                <span class="tag grey small margin-bottom">IKEA</span>
+                <span class="tag grey small margin-bottom">NORWAY</span>
+                <span class="tag grey small margin-bottom">DIY</span>
+                <span class="tag grey small margin-bottom">Ideas</span>
+                <span class="tag grey small margin-bottom">Baby</span>
+                <span class="tag grey small margin-bottom">Family</span>
+                <span class="tag grey small margin-bottom">News</span>
+                <span class="tag grey small margin-bottom">Clothing</span>
+                <span class="tag grey small margin-bottom">Shopping</span>
+                <span class="tag grey small margin-bottom">Sports</span>
+                <span class="tag grey small margin-bottom">Games</span>
+            </p>
+        </div>
+    </div>
+</footer>
+
+<div class="black center padding-24">Oskar Kalbarczyk s27773</div>
+
 </body>
 </html>

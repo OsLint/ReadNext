@@ -5,10 +5,13 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.venv" />
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.11 (BookRecomendationSystem)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="Python 3.9 (BookRecomendationSystem)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="w3" level="application" />
+    <orderEntry type="library" name="font-awesome" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Jinja2" />
