@@ -1,10 +1,11 @@
 import os
-
-from flask import Flask, current_app
+from flask import Flask
 from flasgger import Swagger
-from models.models import db, migrate, User, Book
 from configurations import Config
+from controllers.app_controller import register_routes, login_manager
 import json
+
+from models.models import User, Book, DatabaseContext, db
 
 
 def create_app(config_class=Config):
@@ -12,12 +13,10 @@ def create_app(config_class=Config):
     new_app.config.from_object(config_class)
 
     swagger = Swagger(new_app)
-
-    db.init_app(new_app)
-    migrate.init_app(new_app, db)
+    db_context = DatabaseContext(new_app)
+    login_manager.init_app(new_app)
 
     with new_app.app_context():
-        from controllers.app_controller import register_routes
         register_routes(new_app)
 
     return new_app
@@ -38,7 +37,11 @@ def seed_db():
 
     for user_data in users:
         if not User.query.filter_by(nickname=user_data["nickname"]).first():
-            user = User(name=user_data["name"], nickname=user_data["nickname"], password=user_data["password"])
+            user = User(
+                name=user_data["name"],
+                nickname=user_data["nickname"],
+                password=user_data["password"]
+            )
             db.session.add(user)
             print(f"[DEBUG] Adding user: {user_data['nickname']}")
 

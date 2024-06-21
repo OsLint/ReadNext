@@ -1,11 +1,22 @@
-from flask_migrate import Migrate
+from flask_login import UserMixin
 from flask_sqlalchemy import SQLAlchemy
+from flask_migrate import Migrate
 
 db = SQLAlchemy()
 migrate = Migrate()
 
 
-class User(db.Model):
+class DatabaseContext:
+    def __init__(self, app=None):
+        if app is not None:
+            self.init_app(app)
+
+    def init_app(self, app):
+        db.init_app(app)
+        migrate.init_app(app, db)
+
+
+class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), unique=True, nullable=False)
