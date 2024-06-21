@@ -21,6 +21,7 @@ class User(db.Model, UserMixin):
     name = db.Column(db.String(100), nullable=False)
     nickname = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
+    liked_books = db.relationship('Book', secondary='user_book_opinion', backref='liked_by')
 
 
 class Book(db.Model):
@@ -31,6 +32,7 @@ class Book(db.Model):
     genre = db.Column(db.String(100), nullable=False)
     cover_photo_url = db.Column(db.String(1000), nullable=False)
     publication_year = db.Column(db.String(4), nullable=False)
+    likes = db.Column(db.Integer, default=0)
 
 
 class UserBookOpinion(db.Model):
@@ -38,7 +40,6 @@ class UserBookOpinion(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
     likes = db.Column(db.Boolean, nullable=False)
-    review = db.Column(db.String(1000), nullable=True)
 
 
 class UserBookRecommendation(db.Model):

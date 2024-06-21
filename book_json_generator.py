@@ -1,7 +1,7 @@
 import requests
 import json
 
-API_KEY = 'AIzaSyB_bF7LKkC6T0McQtSj2zD5amOQ3AfmzFM'
+API_KEY = ''
 QUERY = 'fiction'
 MAX_RESULTS = 40
 NUM_REQUESTS = 25

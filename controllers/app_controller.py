@@ -1,8 +1,10 @@
-from flask import request, render_template, jsonify
+from flask import request, render_template, jsonify, redirect, url_for
 from flasgger import swag_from
-from flask_login import LoginManager, login_user, current_user, login_required
+from flask_login import LoginManager, current_user, login_required
+
 from models.models import User
-from repositories.user_repository import UserRepository
+from services.user_service import UserService
+from services.book_service import BookService
 
 login_manager = LoginManager()
 
@@ -60,15 +62,11 @@ def register_routes(app):
     def login():
         nickname = request.form.get('nickname')
         password = request.form.get('password')
+        logged_in = UserService.login(nickname, password)
 
-        user = UserRepository.get_by_nickname_and_password(nickname, password)
-
-        if user:
-            login_user(user)
-            print(f"[DEBUG] Login successful for user: {nickname}")
-            return jsonify({'message': 'Login successful', 'status': 'success'})
+        if logged_in:
+            return redirect(url_for('home'))
         else:
-            print(f"[DEBUG] Invalid login attempt for user: {nickname}")
             return jsonify({'message': 'Invalid credentials', 'status': 'failure'}), 400
 
     @app.route('/register', methods=['POST'])
@@ -113,16 +111,46 @@ def register_routes(app):
         nickname = request.form.get('nickname')
         password = request.form.get('password')
 
-        if UserRepository.get_by_nickname(nickname):
-            print(f"[DEBUG] Registration failed: User {nickname} already exists.")
+        registered = UserService.register(name, nickname, password)
+        if registered:
+            return redirect(url_for('home'))
+        else:
             return jsonify({'message': 'User already exists', 'status': 'failure'}), 400
 
-        UserRepository.add_user(name, nickname, password)
-        print(f"[DEBUG] User registered: {nickname}")
+    @app.route('/home')
+    @login_required
+    def home():
+        page = request.args.get('page', 1, type=int)
+        title = request.args.get('title', '')
+        author = request.args.get('author', '')
+        year = request.args.get('year', type=int)
+        genre = request.args.get('genre', '')
 
-        return jsonify({'message': 'Registration successful', 'status': 'success'})
+        books = BookService.search_books(title, author, year, genre, page=page, per_page=5, current_user=current_user)
+        return render_template('home.html', user=current_user, books=books, page=page)
 
     @app.route('/profile')
     @login_required
     def profile():
-        return render_template('profile.html', user=current_user)
+        liked_books = current_user.liked_books
+        return render_template('profile.html', user=current_user, books=liked_books)
+
+    @app.route('/like_book', methods=['POST'])
+    @login_required
+    def like_book():
+        data = request.get_json()
+        book_id = data.get('book_id')
+        if book_id:
+            likes = BookService.like_book(book_id, current_user.id)
+            return jsonify({'likes': likes, 'isLiked': True})
+        return jsonify({'message': 'Book ID not provided'}), 400
+
+    @app.route('/dislike_book', methods=['POST'])
+    @login_required
+    def dislike_book():
+        data = request.get_json()
+        book_id = data.get('book_id')
+        if book_id:
+            likes = BookService.dislike_book(book_id, current_user.id)
+            return jsonify({'likes': likes, 'isLiked': False})
+        return jsonify({'message': 'Book ID not provided'}), 400

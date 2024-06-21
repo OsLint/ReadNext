@@ -1,6 +1,7 @@
 import os
 from flask import Flask
 from flasgger import Swagger
+
 from configurations import Config
 from controllers.app_controller import register_routes, login_manager
 import json
@@ -11,7 +12,6 @@ from models.models import User, Book, DatabaseContext, db
 def create_app(config_class=Config):
     new_app = Flask(__name__)
     new_app.config.from_object(config_class)
-
     swagger = Swagger(new_app)
     db_context = DatabaseContext(new_app)
     login_manager.init_app(new_app)

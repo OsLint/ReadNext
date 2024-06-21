@@ -1,9 +1,8 @@
 # Book recommendations system
 
+Project made for my PPY (Programing in Python) Class in Polish Japanese Academy of Information Technology.
 
-
-## Commands
-
+## Initialize data base before running the app
 
 ### Run the database
 ```bash
@@ -18,3 +17,4 @@ if you don't have data in database you can seed it by running the following comm
 ```bash
 flask seed_db
 ```
+
