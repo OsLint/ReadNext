@@ -7,11 +7,11 @@
 
 ### Run the database
 ```bash
-flash db init
+flask db init
 
-flash db migrate
+flask db migrate
 
-flash db upgrade
+flask db upgrade
 ```
 
 if you don't have data in database you can seed it by running the following command
