@@ -25,3 +25,4 @@ class UserService:
         UserRepository.add_user(name, nickname, password)
         print(f"[DEBUG] User registered: {nickname}")
         return True
+

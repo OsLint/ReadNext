@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Recommended Books For You{% endblock %}
+
+{% block content %}
+<h1>Recommended Books For You</h1>
+
+{% if message %}
+    <p>{{ message }}</p>
+    <div class="book-grid">
+        {% for book in books %}
+            <div class="book-card" data-book-id="{{ book.id }}">
+                <img src="{{ book.cover_photo_url }}" alt="Book cover" onerror="handleImageError(this)"/>
+                <h3>{{ book.title }}</h3>
+                <p>{{ book.author }}</p>
+                <p><strong>Short Description:</strong></p>
+                <p>{{ book.short_description.split(' ')[:100] | join(' ') }}...</p>
+                <p><strong>Genre:</strong> {{ book.genre }}</p>
+                <p><strong>Year:</strong> {{ book.publication_year }}</p>
+                <button class="like-button" onclick="toggleLike({{ book.id }}, {{ book.liked_by_user | lower }})"
+                        style="background-color: {% if book.liked_by_user %}darkslategray{% else %}teal{% endif %}; color: white; padding: 8px 16px; border: none;">
+                    {% if book.liked_by_user %}Liked{% else %}Like{% endif %} ({{ book.likes }})
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <div class="book-grid">
+        {% for book in books %}
+            <div class="book-card" data-book-id="{{ book.id }}">
+                <img src="{{ book.cover_photo_url }}" alt="Book cover" onerror="handleImageError(this)"/>
+                <h3>{{ book.title }}</h3>
+                <p>{{ book.author }}</p>
+                <p><strong>Short Description:</strong></p>
+                <p>{{ book.short_description.split(' ')[:100] | join(' ') }}...</p>
+                <p><strong>Genre:</strong> {{ book.genre }}</p>
+                <p><strong>Year:</strong> {{ book.publication_year }}</p>
+                <button class="like-button" onclick="toggleLike({{ book.id }}, false)"
+                        style="background-color: teal; color: white; padding: 8px 16px; border: none;">
+                    Like ({{ book.likes }})
+                </button>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<div style="text-align: center; padding: 32px;">
+    <div>
+        {% if page > 1 %}
+            <a href="{{ url_for('recommendations', page=page-1) }}" style="padding: 8px 16px; border: 1px solid #ccc; text-decoration: none; color: black;">«</a>
+        {% endif %}
+        <span style="padding: 8px 16px; background-color: black; color: white; text-decoration: none;">{{ page }}</span>
+        {% if books|length == 5 %}
+            <a href="{{ url_for('recommendations', page=page + 1) }}" style="padding: 8px 16px; border: 1px solid #ccc; text-decoration: none; color: black;">»</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

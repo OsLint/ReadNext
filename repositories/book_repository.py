@@ -1,3 +1,4 @@
+from models.book_recomender import recommend_books
 from models.models import Book, db, UserBookOpinion
 
 
@@ -24,8 +25,10 @@ class BookRepository:
     @staticmethod
     def like_book(book_id, user_id):
         book = Book.query.get(book_id)
-        existing_opinion = UserBookOpinion.query.filter_by(user_id=user_id, book_id=book_id, likes=True).first()
+        if not book:
+            return None
 
+        existing_opinion = UserBookOpinion.query.filter_by(user_id=user_id, book_id=book_id, likes=True).first()
         if existing_opinion:
             return book.likes
 
@@ -38,8 +41,10 @@ class BookRepository:
     @staticmethod
     def dislike_book(book_id, user_id):
         book = Book.query.get(book_id)
-        existing_opinion = UserBookOpinion.query.filter_by(user_id=user_id, book_id=book_id, likes=True).first()
+        if not book:
+            return None
 
+        existing_opinion = UserBookOpinion.query.filter_by(user_id=user_id, book_id=book_id, likes=True).first()
         if not existing_opinion:
             return book.likes
 
@@ -75,3 +80,27 @@ class BookRepository:
             for book in books:
                 book.liked_by_user = book.id in user_likes
         return books
+
+    @staticmethod
+    def search_liked_books(title='', author='', year=None, genre='', page=1, per_page=5, user_id=None):
+        query = Book.query.join(UserBookOpinion).filter(UserBookOpinion.user_id == user_id,
+                                                        UserBookOpinion.likes == True)
+        if title:
+            query = query.filter(Book.title.ilike(f'%{title}%'))
+        if author:
+            query = query.filter(Book.author.ilike(f'%{author}%'))
+        if year:
+            query = query.filter(Book.publication_year == year)
+        if genre:
+            query = query.filter(Book.genre.ilike(f'%{genre}%'))
+        query = query.order_by(Book.title.asc())
+
+        paginated_query = query.paginate(page=page, per_page=per_page, error_out=False)
+        books = paginated_query.items
+        for book in books:
+            book.liked_by_user = True
+        return books
+
+    @staticmethod
+    def get_book_recommendations(user_id):
+        return recommend_books(user_id)

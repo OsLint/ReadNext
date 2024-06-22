@@ -1,4 +1,6 @@
 import os
+from random import Random
+
 from flask import Flask
 from flasgger import Swagger
 
@@ -65,7 +67,8 @@ def seed_db():
                 short_description=book_data["short_description"],
                 genre=book_data["genre"],
                 cover_photo_url=book_data["cover_photo_url"],
-                publication_year=book_data["publication_year"]
+                publication_year=book_data["publication_year"],
+                likes=Random().randint(0, 1999)
             )
             db.session.add(book)
             print(f"[DEBUG] Adding book: {book_data['title']}")

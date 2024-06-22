@@ -1,8 +1,8 @@
 from flask import request, render_template, jsonify, redirect, url_for
 from flasgger import swag_from
-from flask_login import LoginManager, current_user, login_required
+from flask_login import LoginManager, current_user, login_required, logout_user
 
-from models.models import User
+from models.models import User, UserBookOpinion
 from services.user_service import UserService
 from services.book_service import BookService
 
@@ -132,8 +132,15 @@ def register_routes(app):
     @app.route('/profile')
     @login_required
     def profile():
-        liked_books = current_user.liked_books
-        return render_template('profile.html', user=current_user, books=liked_books)
+        page = request.args.get('page', 1, type=int)
+        title = request.args.get('title', '')
+        author = request.args.get('author', '')
+        year = request.args.get('year', type=int)
+        genre = request.args.get('genre', '')
+
+        books = BookService.search_liked_books(title, author, year, genre, page=page, per_page=5,
+                                               user_id=current_user.id)
+        return render_template('profile.html', user=current_user, books=books, page=page, per_page=5)
 
     @app.route('/like_book', methods=['POST'])
     @login_required
@@ -154,3 +161,24 @@ def register_routes(app):
             likes = BookService.dislike_book(book_id, current_user.id)
             return jsonify({'likes': likes, 'isLiked': False})
         return jsonify({'message': 'Book ID not provided'}), 400
+
+    @app.route('/logout')
+    @login_required
+    def logout():
+        logout_user()
+        return redirect(url_for('index'))
+
+    @app.route('/recommendations')
+    @login_required
+    def recommendations():
+        page = request.args.get('page', 1, type=int)
+        liked_books = UserBookOpinion.query.filter_by(user_id=current_user.id, likes=True).all()
+
+        if len(liked_books) < 5:
+            message = ("You need to like at least 5 books to get recommendations. Please like more books from the list "
+                       "below and then refresh.")
+            books = BookService.get_all_books(page=page, per_page=5, current_user=current_user)
+            return render_template('recommendations.html', user=current_user, books=books, message=message, page=page)
+
+        recommended_books = BookService.get_book_recommendations(current_user.id)
+        return render_template('recommendations.html', user=current_user, books=recommended_books, page=page)

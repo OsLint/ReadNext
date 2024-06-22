@@ -47,4 +47,3 @@ class UserBookRecommendation(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
     similar_books_liked_by_user = db.Column(db.Integer, nullable=False)
-    similar_books_disliked_by_user = db.Column(db.Integer, nullable=False)

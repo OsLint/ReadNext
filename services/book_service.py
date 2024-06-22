@@ -18,3 +18,11 @@ class BookService:
     @staticmethod
     def search_books(title='', author='', year=None, genre='', page=1, per_page=5, current_user=None):
         return BookRepository.search_books(title, author, year, genre, page, per_page, current_user)
+
+    @staticmethod
+    def search_liked_books(title='', author='', year=None, genre='', page=1, per_page=5, user_id=None):
+        return BookRepository.search_liked_books(title, author, year, genre, page, per_page, user_id)
+
+    @staticmethod
+    def get_book_recommendations(user_id):
+        return BookRepository.get_book_recommendations(user_id)
