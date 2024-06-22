@@ -30,12 +30,11 @@
     {% for book in books %}
         <div class="book-card" data-book-id="{{ book.id }}">
             <img src="{{ book.cover_photo_url }}" alt="Book cover" onerror="handleImageError(this)"/>
-            <h3>{{ book.title }}</h3>
-            <p>{{ book.author }}</p>
-            <p><strong>Short Description:</strong></p>
-            <p>{{ book.short_description.split(' ')[:100] | join(' ') }}...</p>
-            <p><strong>Genre:</strong> {{ book.genre }}</p>
-            <p><strong>Year:</strong> {{ book.publication_year }}</p>
+            <h3><strong>Title: </strong>{{ book.title }}</h3>
+            <p><strong>Author: </strong>{{ book.author }}</p>
+            <p><strong >Short Description: </strong>{{ book.short_description[:100] }}{% if book.short_description|length > 100 %}...{% endif %}</p>
+            <p><strong>Genre: </strong> {{ book.genre }}</p>
+            <p><strong>Year: </strong> {{ book.publication_year }}</p>
             <button class="like-button" onclick="toggleLike({{ book.id }}, {{ book.liked_by_user | lower }})"
                     style="background-color: {% if book.liked_by_user %}darkslategray{% else %}teal{% endif %}; color: white; padding: 8px 16px; border: none;">
                 {% if book.liked_by_user %}Liked{% else %}Like{% endif %} ({{ book.likes }})

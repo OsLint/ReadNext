@@ -1,5 +1,5 @@
 from sklearn.neighbors import NearestNeighbors
-from models.models import Book, UserBookOpinion
+from models.models import Book, UserBookOpinion, UserBookRecommendation, db
 from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
 import numpy as np
@@ -43,7 +43,7 @@ def recommend_books(user_id, n_recommendations=5):
     all_books_features, encoder = prepare_features(all_books)
     liked_books_features, _ = prepare_features(liked_books, encoder=encoder)
 
-    knn = NearestNeighbors(n_neighbors=n_recommendations, metric='cosine')
+    knn = NearestNeighbors(n_neighbors=n_recommendations + len(liked_books_ids), metric='cosine')
     knn.fit(all_books_features)
 
     distances, indices = knn.kneighbors(liked_books_features)
@@ -52,6 +52,16 @@ def recommend_books(user_id, n_recommendations=5):
     for idx in indices.flatten():
         book_id = all_books_ids[idx]
         if book_id not in liked_books_ids:
+            similar_books_liked = sum(1 for idx in indices.flatten() if all_books_ids[idx] in liked_books_ids)
+            recommendation = UserBookRecommendation(
+                user_id=user_id,
+                book_id=book_id,
+                similar_books_liked_by_user=similar_books_liked
+            )
+            db.session.add(recommendation)
+            db.session.commit()
             recommended_books.append(Book.query.get(book_id))
+            if len(recommended_books) >= n_recommendations:
+                break
 
     return recommended_books

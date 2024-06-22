@@ -175,8 +175,8 @@ def register_routes(app):
         liked_books = UserBookOpinion.query.filter_by(user_id=current_user.id, likes=True).all()
 
         if len(liked_books) < 5:
-            message = ("You need to like at least 5 books to get recommendations. Please like more books from the list "
-                       "below and then refresh.")
+            message = ("You need to like at least 5 books to get recommendations. Please like more books before you "
+                       "get back here.")
             books = BookService.get_all_books(page=page, per_page=5, current_user=current_user)
             return render_template('recommendations.html', user=current_user, books=books, message=message, page=page)
 

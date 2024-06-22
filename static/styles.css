@@ -144,34 +144,48 @@ body {
 }
 
 
- body, h1, h2, h3, h4, h5, h6 {
-            font-family: "Raleway", sans-serif;
-        }
-        .book-grid {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 16px;
-        }
-        .book-card {
-            background-color: white;
-            padding: 16px;
-            border: 1px solid #ccc;
-            border-radius: 8px;
-            width: calc(33.333% - 32px);
-            box-sizing: border-box;
-        }
-        .book-card img {
+body, h1, h2, h3, h4, h5, h6 {
+    font-family: "Raleway", sans-serif;
+}
 
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 50%;
-            height: auto;
-            border-radius: 8px;
-        }
-        .book-card h3 {
-            margin-top: 8px;
-            font-size: 1.2em;
-        }
-        .book-card p {
-            margin-top: 4px;
-            color: #666;
-        }
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.book-card {
+    background-color: white;
+    padding: 16px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    width: calc(33.333% - 32px);
+    box-sizing: border-box;
+}
+
+.book-card img {
+
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.book-card h3 {
+    margin-top: 8px;
+    font-size: 1.2em;
+}
+
+.book-card p {
+    margin-top: 4px;
+    color: #666;
+}
+
+.book-card strong {
+    font-weight: bold;
+    color: teal;
+}
+
+
+
+
