@@ -18,3 +18,11 @@ if you don't have data in database you can seed it by running the following comm
 flask seed_db
 ```
 
+## Common errors
+
+if you are using chrome or chromium and you get 403 error when trying to login or running the app,
+you can try to clear the socket pool by going to the following address in your browser
+```
+chrome://net-internals/#sockets
+```
+
