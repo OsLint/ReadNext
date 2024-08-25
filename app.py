@@ -1,5 +1,6 @@
 import os
 from random import Random
+from flask_cors import CORS
 
 from flask import Flask
 from flasgger import Swagger
@@ -13,6 +14,7 @@ from models.models import User, Book, DatabaseContext, db
 
 def create_app(config_class=Config):
     new_app = Flask(__name__)
+    CORS(new_app)
     new_app.config.from_object(config_class)
     swagger = Swagger(new_app)
     db_context = DatabaseContext(new_app)

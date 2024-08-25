@@ -1,4 +1,4 @@
-from flask import request, render_template, jsonify, redirect, url_for
+from flask import request, render_template, jsonify, redirect, url_for, send_from_directory
 from flasgger import swag_from
 from flask_login import LoginManager, current_user, login_required, logout_user
 
@@ -18,94 +18,27 @@ def register_routes(app):
 
     @app.route('/')
     def index():
-        return render_template('index.html')
+        return send_from_directory('frontend', 'index.html')
+
+    @app.route('/static/<path:path>')
+    def static_proxy(path):
+        return send_from_directory('frontend', path)
+
 
     @app.route('/login', methods=['POST'])
-    @swag_from({
-        'responses': {
-            200: {
-                'description': 'Login successful',
-                'examples': {
-                    'application/json': {
-                        'message': 'Login successful',
-                        'status': 'success'
-                    }
-                }
-            },
-            400: {
-                'description': 'Invalid credentials',
-                'examples': {
-                    'application/json': {
-                        'message': 'Invalid credentials',
-                        'status': 'failure'
-                    }
-                }
-            }
-        },
-        'parameters': [
-            {
-                'name': 'nickname',
-                'in': 'formData',
-                'type': 'string',
-                'required': True,
-                'description': 'User Nickname'
-            },
-            {
-                'name': 'password',
-                'in': 'formData',
-                'type': 'string',
-                'required': True,
-                'description': 'User password'
-            }
-        ]
-    })
+
     def login():
         nickname = request.form.get('nickname')
         password = request.form.get('password')
         logged_in = UserService.login(nickname, password)
 
         if logged_in:
-            return redirect(url_for('home'))
+            return jsonify({'message': 'Login successful', 'status': 'success'})
         else:
             return jsonify({'message': 'Invalid credentials', 'status': 'failure'}), 400
 
+
     @app.route('/register', methods=['POST'])
-    @swag_from({
-        'responses': {
-            200: {
-                'description': 'Registration successful',
-                'examples': {
-                    'application/json': {
-                        'message': 'Registration successful',
-                        'status': 'success'
-                    }
-                }
-            }
-        },
-        'parameters': [
-            {
-                'name': 'name',
-                'in': 'formData',
-                'type': 'string',
-                'required': True,
-                'description': 'User name'
-            },
-            {
-                'name': 'nickname',
-                'in': 'formData',
-                'type': 'string',
-                'required': True,
-                'description': 'User Nickname'
-            },
-            {
-                'name': 'password',
-                'in': 'formData',
-                'type': 'string',
-                'required': True,
-                'description': 'User password'
-            }
-        ]
-    })
     def register():
         name = request.form.get('name')
         nickname = request.form.get('nickname')
@@ -113,7 +46,7 @@ def register_routes(app):
 
         registered = UserService.register(name, nickname, password)
         if registered:
-            return redirect(url_for('home'))
+            return jsonify({'message': 'Login successful', 'status': 'success'})
         else:
             return jsonify({'message': 'User already exists', 'status': 'failure'}), 400
 
