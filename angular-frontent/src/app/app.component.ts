@@ -30,7 +30,7 @@ export class AppComponent {
     .then(response => response.json())
     .then(data => {
         if (data.likes !== undefined) {
-            const likeButton = document.querySelector(`.book-card[data-book-id="${bookId}"] .like-button`);
+          const likeButton = document.querySelector(`.book-card[data-book-id="${bookId}"] .like-button`);
             // @ts-ignore
           likeButton.textContent = `${data.isLiked ? 'Liked' : 'Like'} (${data.likes})`;
             // @ts-ignore
