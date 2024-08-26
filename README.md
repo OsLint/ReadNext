@@ -1,6 +1,8 @@
-# 📚 Book Recommendations System
+# 📚 ReadNext
 
-This project was developed for my PPY (Programming in Python) class at the Polish Japanese Academy of Information Technology.
+## Disclaimer
+This project was originally  developed for my PPY (Programming in Python) class at the Polish Japanese Academy of Information Technology
+You can see the state it was in when you go back to commits from the june 2024.
 
 ## Overview
 

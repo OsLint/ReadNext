@@ -8,7 +8,8 @@
     <li><a routerLink="/recommendations">Recommendations</a></li>
   </ul>
   <div class="navbar-actions">
-    <!-- Add login/logout buttons or user-related actions here -->
-    <li><a routerLink="/login">Login</a></li>
+    <li *ngIf="true; then thenBlock else elseBlock"></li>
+    <ng-template #thenBlock><a routerLink="/login">Login</a></ng-template>
+    <ng-template #elseBlock><li><a routerLink="/logout">Logout</a></li></ng-template>
   </div>
 </nav>

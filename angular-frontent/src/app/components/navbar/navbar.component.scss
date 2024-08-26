@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #ffffff; // Adjust the background color as per your design
+  background-color: #ffffff;
   padding: 10px 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
@@ -22,12 +22,12 @@
     li {
       a {
         text-decoration: none;
-        color: #3d2685; // Adjust the color as per your design
+        color: #3d2685;
         font-weight: bold;
         transition: color 0.3s;
 
         &:hover {
-          color: #9933ff; // Adjust the hover color as per your design
+          color: #9933ff;
         }
       }
     }
@@ -40,12 +40,12 @@
     li {
       a {
         text-decoration: none;
-        color: #3d2685; // Adjust the color as per your design
+        color: #3d2685;
         font-weight: bold;
         transition: color 0.3s;
 
         &:hover {
-          color: #9933ff; // Adjust the hover color as per your design
+          color: #9933ff;
         }
       }
     }
