@@ -3,13 +3,26 @@
   align-items: center;
   justify-content: space-between;
   background-color: #ffffff;
-  padding: 10px 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 0 20px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
 
   .navbar-logo {
+    display: flex;
+    align-items: center;
+
+    a {
+      display: inline-block;
+      text-decoration: none;
+    }
+
     img {
       height: 50px;
       width: 50px;
+      transition: transform 0.3s ease-in-out;
+
+      &:hover {
+        transform: scale(1.1) rotate(10deg);
+      }
     }
   }
 
@@ -24,12 +37,14 @@
         text-decoration: none;
         color: #3d2685;
         font-weight: bold;
-        transition: color 0.3s;
+        transition: color 0.3s, transform 0.3s ease-in-out;
 
         &:hover {
           color: #9933ff;
+          transform: scale(1.1);
         }
       }
+
     }
   }
 
@@ -39,13 +54,16 @@
 
     li {
       a {
+        display: inline-block;
         text-decoration: none;
         color: #3d2685;
         font-weight: bold;
-        transition: color 0.3s;
+        line-height: 1.2;
+        transition: color 0.3s, transform 0.3s ease-in-out;
 
         &:hover {
           color: #9933ff;
+          transform: scale(1.05);
         }
       }
     }

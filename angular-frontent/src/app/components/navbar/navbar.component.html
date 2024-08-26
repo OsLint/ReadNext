@@ -1,15 +1,17 @@
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 <nav class="navbar">
   <div class="navbar-logo">
-    <img ngSrc="assets/logo.png" alt="App Logo" height="500" width="500"/>
+    <a routerLink="/home">
+      <img ngSrc="assets/logo.png" alt="App Logo" height="500" width="500"/>
+    </a>
   </div>
   <ul class="navbar-links">
-    <li><a routerLink="/home">Home</a></li>
-    <li><a routerLink="/profile">Profile</a></li>
-    <li><a routerLink="/recommendations">Recommendations</a></li>
+    <li><a routerLink="/home" ><i class='bx bxs-home'></i>Home</a></li>
+    <li><a routerLink="/profile" ><i class='bx bxs-user'></i>Profile</a></li>
+    <li><a routerLink="/recommendations"><i class='bx bxs-help-circle'></i>Recommendations</a></li>
   </ul>
   <div class="navbar-actions">
-    <li *ngIf="true; then thenBlock else elseBlock"></li>
-    <ng-template #thenBlock><a routerLink="/login">Login</a></ng-template>
-    <ng-template #elseBlock><li><a routerLink="/logout">Logout</a></li></ng-template>
+    <li><a routerLink="/login"><i class='bx bxs-lock-open-alt' ></i>Login</a></li>
+
   </div>
 </nav>
