@@ -1,0 +1,53 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #ffffff; // Adjust the background color as per your design
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+  .navbar-logo {
+    img {
+      height: 50px;
+      width: 50px;
+    }
+  }
+
+  .navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    margin: 0;
+
+    li {
+      a {
+        text-decoration: none;
+        color: #3d2685; // Adjust the color as per your design
+        font-weight: bold;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #9933ff; // Adjust the hover color as per your design
+        }
+      }
+    }
+  }
+
+  .navbar-actions {
+    list-style: none;
+    margin: 0;
+
+    li {
+      a {
+        text-decoration: none;
+        color: #3d2685; // Adjust the color as per your design
+        font-weight: bold;
+        transition: color 0.3s;
+
+        &:hover {
+          color: #9933ff; // Adjust the hover color as per your design
+        }
+      }
+    }
+  }
+}
