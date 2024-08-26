@@ -1,9 +1,12 @@
 import { Component , ViewEncapsulation } from '@angular/core';
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [],
+  imports: [
+    NgOptimizedImage
+  ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
   encapsulation: ViewEncapsulation.None
