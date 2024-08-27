@@ -6,7 +6,7 @@ import {FormsModule} from "@angular/forms";
 import {catchError, of, tap} from "rxjs";
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-register',
   standalone: true,
   imports: [
     NgOptimizedImage,
@@ -16,26 +16,28 @@ import {catchError, of, tap} from "rxjs";
     FormsModule,
     NgIf
   ],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss',
+  templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
   encapsulation: ViewEncapsulation.None
 })
-export class LoginComponent {
+export class RegisterComponent {
+  email: string = '';
   userName: string = '';
   password: string = '';
-   errorMessage: string = '';
+  errorMessage: string = '';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(private http: HttpClient, private router: Router) {
+  }
 
-  onSubmit(){
+  onSubmit() {
     this.errorMessage = '';
 
-    this.http.post('/api/login', { userName: this.userName, password: this.password }).pipe(
+    this.http.post('/api/register', {userName: this.userName, password: this.password}).pipe(
       tap((response: any) => {
         if (response.status === 'success') {
           this.router.navigate(['/home']).then();
         } else {
-          this.errorMessage = 'Login failed. Please check your credentials.';
+          this.errorMessage = 'Register failed. User already exists.';
         }
       }),
       catchError((error) => {
@@ -45,5 +47,4 @@ export class LoginComponent {
       })
     ).subscribe();
   }
-
 }

@@ -1,5 +1,4 @@
 from flask import request, render_template, jsonify, redirect, url_for, send_from_directory
-from flasgger import swag_from
 from flask_login import LoginManager, current_user, login_required, logout_user
 
 from models.models import User, UserBookOpinion
@@ -46,9 +45,10 @@ def register_routes(app):
 
         registered = UserService.register(name, nickname, password)
         if registered:
-            return jsonify({'message': 'Login successful', 'status': 'success'})
+            return jsonify({'message': 'Registration successful', 'status': 'success'})
         else:
             return jsonify({'message': 'User already exists', 'status': 'failure'}), 400
+
 
     @app.route('/home')
     @login_required
@@ -60,7 +60,7 @@ def register_routes(app):
         genre = request.args.get('genre', '')
 
         books = BookService.search_books(title, author, year, genre, page=page, per_page=5, current_user=current_user)
-        return render_template('home.html', user=current_user, books=books, page=page)
+        return jsonify({'books': [book.to_dict() for book in books]})
 
     @app.route('/profile')
     @login_required

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router, RouterOutlet} from '@angular/router';
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {NavbarComponent} from "./components/navbar/navbar.component";
@@ -15,7 +15,7 @@ export class AppComponent {
 
   constructor(private router: Router) {}
 
-  isLoginPage(): boolean {
-    return this.router.url.includes('login');
+  isAuthPage(): boolean {
+    return this.router.url.includes('login') || this.router.url.includes('register');
   }
 }

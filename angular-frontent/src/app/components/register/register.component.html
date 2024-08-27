@@ -4,7 +4,12 @@
 <div class="wrapper">
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
     <div class="title">
-      <h1>Login</h1>
+      <h1>Register</h1>
+
+    </div>
+    <div class="input-box">
+      <input type="text" placeholder="Email" [(ngModel)]="email" name="email" required>
+      <i class='bx bxs-envelope'></i>
     </div>
     <div class="input-box">
       <input type="text" placeholder="Username" [(ngModel)]="userName" name="userName" required>
@@ -12,15 +17,17 @@
     </div>
     <div class="input-box">
       <input type="password" placeholder="Password" [(ngModel)]="password" name="password" required>
-      <i class='bx bxs-lock-open-alt'></i>
+      <i class='bx bxs-lock-open-alt' ></i>
     </div>
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
     <button type="submit" class="btn">Login</button>
-    <div class="register-link">
-      <p>Don't have an account? <a routerLink="/register">Register</a></p>
+
+    <div class="login-link">
+      <p>Already have an account? <a routerLink="/login">Login</a></p>
     </div>
+
   </form>
 </div>
 
