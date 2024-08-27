@@ -74,26 +74,8 @@ body {
   font-size: 20px;
 }
 
-.wrapper .remember-forgot{
-  display: flex;
-  justify-content: space-between;
-  font-size: 14.5px;
-  margin: -15px 0 15px;
-}
 
-.remember-forgot label input{
-  accent-color: #fff;
-  margin-right: 3px;
-}
 
-.remember-forgot a{
-  color: #fff;
-  text-decoration: none;
-}
-
-.remember-forgot a:hover{
-  text-decoration: underline;
-}
 
 .wrapper .btn {
   width: 100%;
@@ -102,12 +84,25 @@ body {
   border: none;
   outline: none;
   border-radius: 40px;
-  box-shadow: 0 0 10px rgba(0,0,0,.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   font-size: 16px;
   color: #333;
   font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s ease;
 }
+
+
+.wrapper .btn:hover {
+  background: #7a8855;
+  color: #fff;
+  transform: scale(1.05);
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+}
+
+
 
 .wrapper .register-link{
   font-size: 14.5px;
