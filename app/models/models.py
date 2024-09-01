@@ -4,26 +4,10 @@ from flask_migrate import Migrate
 db = SQLAlchemy()
 migrate = Migrate()
 
-
-class DatabaseContext:
-    def __init__(self, app=None):
-        if app is not None:
-            self.init_app(app)
-
-    def init_app(self, app):
-        db.init_app(app)
-        migrate.init_app(app, db)
-
-
-class User(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(100), nullable=False)
-    nickname = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
-    liked_books = db.relationship('Book', secondary='user_book_opinion', backref='liked_by')
-
-
 class Book(db.Model):
+    """
+    Book model for storing book related
+    """
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     author = db.Column(db.String(100), nullable=False)
@@ -33,16 +17,17 @@ class Book(db.Model):
     publication_year = db.Column(db.String(4), nullable=False)
     likes = db.Column(db.Integer, default=0)
 
-
-class UserBookOpinion(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
-    likes = db.Column(db.Boolean, nullable=False)
-
-
-class UserBookRecommendation(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    book_id = db.Column(db.Integer, db.ForeignKey('book.id'), nullable=False)
-    similar_books_liked_by_user = db.Column(db.Integer, nullable=False)
+    def to_dict(self):
+        """
+        Convert the SQLAlchemy model instance into a dictionary.
+        """
+        return {
+            'id': self.id,
+            'title': self.title,
+            'author': self.author,
+            'short_description': self.short_description,
+            'genre': self.genre,
+            'cover_photo_url': self.cover_photo_url,
+            'publication_year': self.publication_year,
+            'likes': self.likes
+        }

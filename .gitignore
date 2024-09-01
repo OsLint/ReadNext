@@ -7,3 +7,9 @@
 /models/__pycache__
 /repositories/__pycache__
 /services/__pycache__
+/app/api/__pycache__
+/app/config/__pycache__
+/app/models/__pycache__
+/app/repositories/__pycache__
+/app/services/__pycache__
+/app/__pycache__
