@@ -1,11 +1,11 @@
-from models.book_recomender import recommend_books
-from models.models import Book, db, UserBookOpinion
+from book_recomendation_service import recommend_books
+from models import Book, UserBookOpinion, db
 
 
 class BookRepository:
 
     @staticmethod
-    def get_all_books(page=1, per_page=5, current_user=None):
+    def get_all_books(page=1, per_page=20, current_user=None):
         paginated_query = Book.query.order_by(Book.title.asc()).paginate(page=page, per_page=per_page, error_out=False)
         books = paginated_query.items
         if current_user:
@@ -13,6 +13,7 @@ class BookRepository:
             for book in books:
                 book.liked_by_user = book.id in user_likes
         return books
+
 
     @staticmethod
     def get_by_id(book_id):

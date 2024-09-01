@@ -1,5 +1,5 @@
 from sklearn.neighbors import NearestNeighbors
-from models.models import Book, UserBookOpinion, UserBookRecommendation, db
+from models import UserBookOpinion, Book, UserBookRecommendation
 from sklearn.preprocessing import OneHotEncoder
 import pandas as pd
 import numpy as np

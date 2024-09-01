@@ -12,8 +12,13 @@ export class BookService {
   }
 
 
+ // getBooks(page: number): Observable<any> {
+ //   const url = `${this.baseUrl}/books?page=${page}`;
+ //   return this.http.get<any>(url).pipe(catchError(this.handleError));
+ // }
+
   getBooks(page: number): Observable<any> {
-    const url = `${this.baseUrl}/books?page=${page}`;
+    const url = `${this.baseUrl}/books`;
     return this.http.get<any>(url).pipe(catchError(this.handleError));
   }
 
