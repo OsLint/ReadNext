@@ -1,9 +1,49 @@
 .book-card {
-  /* Your existing styles for book-card */
-}
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  text-align: center;
+  padding: 16px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-.book-cover {
-  width: 100%;
-  height: auto; /* Ensure the image scales properly */
-  object-fit: cover; /* Adjust to fit image correctly */
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+
+  .book-cover {
+    width: 100%;
+    height: auto;
+    max-height: 300px;
+    object-fit: cover;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 16px;
+  }
+
+  h3 {
+    margin: 8px 0;
+    font-size: 1.25em;
+    color: #333;
+  }
+
+  p {
+    margin: 4px 0;
+    font-size: 1em;
+    color: #666;
+  }
+
+  button {
+    margin-top: 16px;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 8px 16px;
+    color: white;
+    border: none;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: darkslategray;
+    }
+  }
 }

@@ -1,0 +1,35 @@
+.book-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  padding: 32px;
+  background-color: #f5f5f5;
+}
+
+.pagination {
+  text-align: center;
+  padding: 32px;
+
+  a, span {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    text-decoration: none;
+    color: black;
+    margin: 0 4px;
+    display: inline-block;
+
+    &:hover {
+      background-color: #ddd;
+    }
+  }
+
+  a {
+    background-color: white;
+    transition: background-color 0.3s ease;
+  }
+
+  span {
+    background-color: black;
+    color: white;
+  }
+}
