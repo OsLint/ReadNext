@@ -1,0 +1,9 @@
+.book-card {
+  /* Your existing styles for book-card */
+}
+
+.book-cover {
+  width: 100%;
+  height: auto; /* Ensure the image scales properly */
+  object-fit: cover; /* Adjust to fit image correctly */
+}

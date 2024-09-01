@@ -1,0 +1,9 @@
+
+/myenv
+/venv
+/migrations
+/__pycache__
+/controllers/__pycache__
+/models/__pycache__
+/repositories/__pycache__
+/services/__pycache__

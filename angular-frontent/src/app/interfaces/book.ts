@@ -7,4 +7,5 @@ export interface Book {
   cover_photo_url: string;
   publication_year: number;
   likes: number;
+  liked_by_user: boolean
 }

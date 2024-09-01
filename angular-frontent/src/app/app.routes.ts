@@ -5,6 +5,7 @@ import {RecomendationsComponent} from "./components/recomendations/recomendation
 import {LoginComponent} from "./components/login/login.component";
 import {ProfileComponent} from "./components/profile/profile.component";
 import {RegisterComponent} from "./components/register/register.component";
+import {BookGridComponent} from "./components/book-grid/book-grid.component";
 
 export const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -12,7 +13,8 @@ export const routes: Routes = [
   {path: 'recommendations', component: RecomendationsComponent},
   {path: 'profile', component: ProfileComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'register', component: RegisterComponent}
+  {path: 'register', component: RegisterComponent},
+  {path: 'book-grid', component: BookGridComponent }
 ];
 
 

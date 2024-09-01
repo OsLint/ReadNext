@@ -1,1 +1,14 @@
-<p>book works!</p>
+<div class="book-card" [attr.data-book-id]="book?.id">
+  <img [src]="book?.cover_photo_url" alt="Book cover" (error)="handleImageError($event)" class="book-cover" />
+  <h3><strong>Title: </strong>{{ book?.title }}</h3>
+  <p><strong>Author: </strong>{{ book?.author }}</p>
+  <p *ngIf="book?.short_description as description">
+    <strong>Short Description: </strong>
+    {{ description | slice:0:100 }}<ng-container *ngIf="description.length > 100">...</ng-container>
+  </p>
+  <p><strong>Genre: </strong>{{ book?.genre }}</p>
+  <p><strong>Year: </strong>{{ book?.publication_year }}</p>
+  <button (click)="toggleLike()" [ngStyle]="{'background-color': book?.liked_by_user ? 'darkslategray' : 'teal'}" style="color: white; padding: 8px 16px; border: none;">
+    {{ book?.liked_by_user ? 'Liked' : 'Like' }} ({{ book?.likes }})
+  </button>
+</div>

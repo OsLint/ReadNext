@@ -1,0 +1,11 @@
+<div class="book-grid">
+  <app-book *ngFor="let book of books" [book]="book" (likeToggled)="onLikeToggled($event)"></app-book>
+</div>
+
+<div style="text-align: center; padding: 32px;">
+  <div>
+    <a *ngIf="page > 1" [routerLink]="['/profile', page - 1]" style="padding: 8px 16px; border: 1px solid #ccc; text-decoration: none; color: black;">«</a>
+    <span style="padding: 8px 16px; background-color: black; color: white; text-decoration: none;">{{ page }}</span>
+    <a *ngIf="books.length === 5" [routerLink]="['/profile', page + 1]" style="padding: 8px 16px; border: 1px solid #ccc; text-decoration: none; color: black;">»</a>
+  </div>
+</div>

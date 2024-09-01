@@ -1,21 +1,19 @@
 import os
 from random import Random
-from flask_cors import CORS
-
 from flask import Flask
 from flasgger import Swagger
+from flask_cors import CORS
 
 from configurations import Config
-from controllers.app_controller import register_routes, login_manager
+from controllers.routes import register_routes, login_manager
 import json
-
 from models.models import User, Book, DatabaseContext, db
 
 
 def create_app(config_class=Config):
     new_app = Flask(__name__)
-    CORS(new_app)
     new_app.config.from_object(config_class)
+    CORS(new_app, resources={r"/api/*": {"origins": "http://localhost:4200"}})
     swagger = Swagger(new_app)
     db_context = DatabaseContext(new_app)
     login_manager.init_app(new_app)
@@ -49,16 +47,16 @@ def seed_db():
             db.session.add(user)
             print(f"[DEBUG] Adding user: {user_data['nickname']}")
 
-    real_books_json_path = os.path.join(os.path.dirname(__file__), 'real_books.json')
+    real_books_json_path = os.path.join(os.path.dirname(__file__), 'books.json')
 
     try:
         with open(real_books_json_path, 'r') as file:
             books_data = json.load(file)
     except FileNotFoundError:
-        print("[ERROR] real_books.json file not found.")
+        print("[ERROR] books.json file not found.")
         return
     except json.JSONDecodeError:
-        print("[ERROR] Error decoding JSON from real_books.json.")
+        print("[ERROR] Error decoding JSON from books.json.")
         return
 
     for book_data in books_data:

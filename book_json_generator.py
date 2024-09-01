@@ -35,7 +35,7 @@ for i in range(NUM_REQUESTS):
     if len(books) >= 1000:
         break
 
-with open('real_books.json', 'w') as f:
+with open('books.json', 'w') as f:
     json.dump(books[:1000], f, indent=4)
 
-print("Generated real_books.json with 1000 books.")
+print("Generated books.json with 1000 books.")
